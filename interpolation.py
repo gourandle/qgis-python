@@ -229,9 +229,9 @@ def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_lay
     legend.attemptMove(QgsLayoutPoint(5, 5, QgsUnitTypes.LayoutMillimeters))
     legend.setFrameEnabled(False)
 
-    legend.setStyleFont(QgsLegendStyle.Title, QFont('Arial',10, QFont.Bold))
-    legend.setStyleFont(QgsLegendStyle.Subgroup , QFont('Arial',8, QFont.Bold))
-    legend.setStyleFont(QgsLegendStyle.SymbolLabel, QFont('Arial',8))
+    legend.setStyleFont(QgsLegendStyle.Title, QFont('Helvetica',10, QFont.Bold))
+    legend.setStyleFont(QgsLegendStyle.Subgroup , QFont('Helvetica',8, QFont.Bold))
+    legend.setStyleFont(QgsLegendStyle.SymbolLabel, QFont('Helvetica',8))
 
     legend.setSymbolHeight(3)
     legend.setSymbolWidth(5.5)
