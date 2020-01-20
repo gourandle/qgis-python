@@ -150,10 +150,10 @@ def _calculate_break_points():
     return np.linspace(minVal,maxVal,len(COLOUR_PALLETE))
 
 
-def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_layers, googleLayer):
+def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_layers, googleLayer, rainfall_points_layer_name):
 
     # first, load the layers to the layer registry
-    mapLayers = [rainfall_points_layer] + boundary_layers + [rainfall_interpolation_layer, googleLayer]
+    mapLayers = [rainfall_points_layer] + boundary_layers + [rainfall_interpolation_layer, googleLayer] + [rainfall_points_layer_name]
     #QgsProject.instance().addMapLayers([rainfall_points_layer, rainfall_interpolation_layer, googleLayer])
     QgsProject.instance().addMapLayers(mapLayers)
 
@@ -161,6 +161,7 @@ def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_lay
     rainfall_points_layer.loadNamedStyle(RAINFALL_POINTS_STYLE_FILE)
     for lyr in boundary_layers:
         lyr.loadNamedStyle(BOUNDARY_STYLE_FILE)
+    rainfall_points_layer_name.loadNamedStyle(RAINFALL_POINTS_NAME_STYLE_FILE)
 
 
     # for the interpolation layer, we need a dymanic way to style the layer - loading a style file wont work well
@@ -229,9 +230,9 @@ def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_lay
     legend.attemptMove(QgsLayoutPoint(5, 5, QgsUnitTypes.LayoutMillimeters))
     legend.setFrameEnabled(False)
 
-    legend.setStyleFont(QgsLegendStyle.Title, QFont('Helvetica',10, QFont.Bold))
-    legend.setStyleFont(QgsLegendStyle.Subgroup , QFont('Helvetica',8, QFont.Bold))
-    legend.setStyleFont(QgsLegendStyle.SymbolLabel, QFont('Helvetica',8))
+    legend.setStyleFont(QgsLegendStyle.Title, QFont('Arial',10, QFont.Bold))
+    legend.setStyleFont(QgsLegendStyle.Subgroup , QFont('Arial',8, QFont.Bold))
+    legend.setStyleFont(QgsLegendStyle.SymbolLabel, QFont('Arial',8))
 
     legend.setSymbolHeight(3)
     legend.setSymbolWidth(5.5)
@@ -270,7 +271,7 @@ PROJECT_NAME = 'Bungulla'
 
 # path to your input rainfall csv
 # valid value type: String
-INPUT_RAINFALL_CSV_PATH = r"/var/opt/distribution-map/example/Bungulla-Rainfall-Data-2019-06-09-v2.1.csv"
+INPUT_RAINFALL_CSV_PATH = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Bungulla-Rainfall-Data-2019-06-09-v2.1.csv"
 
 # field names in csv that have x and y values
 # valid value type: String
@@ -283,13 +284,13 @@ INTERPOLATION_DATA_FIELD_NAME = 'Rainfall last 30 days'
 
 # path(s) to boundary layer(s)
 # valid value type: List of String
-BOUNDARY_LAYERS_PATHS = [r"/var/opt/distribution-map/example/Brad Farm Boundary 1.kml",
-                       r"/var/opt/distribution-map/example/Brad Farm Boundary 2.kml"
+BOUNDARY_LAYERS_PATHS = [r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Brad Farm Boundary 1.kml",
+                       r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Brad Farm Boundary 2.kml"
                        ]
 
 # path to folder to place permanent output
 # valid value type: String
-OUTPUT_FOLDER = r"/var/opt/distribution-map/output"
+OUTPUT_FOLDER = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\output"
 
 
 
@@ -300,17 +301,18 @@ OUTPUT_FOLDER = r"/var/opt/distribution-map/output"
 
 # path to the app/qgis folder of your QGIS install
 # valid value type: String
-QGIS_PREFIX_PATH = r"/usr"
+QGIS_PREFIX_PATH = r"C:\Program Files\QGIS 3.4"
 
 # path to folder to store temporary files (these will be removed after script run)
 # valid value type: String
-TEMP_FOLDER = r"/tmp"
+TEMP_FOLDER = r"F:\Tmp"
 
 # path to style files   
 # valid value type: String
 #rainfall_style_file = r"C:\Upwork Jobs\CURRENT\Annie Brox - Origo farm - pyqgis script\sample data\Style for interpolated layer.qml"
-BOUNDARY_STYLE_FILE = r"/var/opt/distribution-map/example/Style for boundary layers.qml"
-RAINFALL_POINTS_STYLE_FILE = r"/var/opt/distribution-map/example/Style for points layers.qml"
+BOUNDARY_STYLE_FILE = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Style for boundary layers.qml"
+RAINFALL_POINTS_STYLE_FILE = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Style for points layers.qml"
+RAINFALL_POINTS_NAME_STYLE_FILE = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Style for points name layers.qml"
 
 # color pallete to use for rainfall interpolation layer
 # valid value type: List of String
@@ -362,7 +364,7 @@ Processing.initialize()
 # Now that everything is initialized properly, let's load the rainfall csv layer to PyQGIS and make a layer object from it.
 print('Loading rainfall points from csv to QGIS layer...')
 rainfall_points_layer = create_rainfall_layer()
-
+rainfall_points_layer_name = create_rainfall_layer()
 # Since you want to be able to define the RESOLUTION of the output interpolated raster in linear units (ie meters),
 # we need to reproject the input data to a coordinate system that uses meters. WGS84 (ie epsg 4326) uses geographic
 # units (ie degrees), so we can't meaningfully measure distance in that crs. This function takes the center lat / lng
@@ -388,7 +390,7 @@ google_satellite_layer = add_google_satellite_layer()
 # Finally, set up the May Layout and export a png map. This function adds our layers (rainfall, boundary, satellite) to the
 # QGIS layer registry, styles them, then sets up and exports a .png map
 print('Exporting map to "{}"'.format(os.path.join(OUTPUT_FOLDER, PROJECT_NAME + '.png')))
-export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_layers, google_satellite_layer)
+export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_layers, google_satellite_layer, rainfall_points_layer_name)
 
 # clean up the temp folder
 print('Cleaning up temp files...')
