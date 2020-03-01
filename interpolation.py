@@ -31,6 +31,14 @@ def convert_wgs_to_utm(lon, lat):
         epsg_code = '327' + utm_band
     return int(epsg_code)
 
+def project_bounding_box(inEPGS, outEPSG, bbox):
+    crsSrc = QgsCoordinateReferenceSystem(inEPGS)
+    crsDest = QgsCoordinateReferenceSystem(outEPSG)
+    xform = QgsCoordinateTransform(crsSrc, crsDest, QgsProject.instance())
+
+    return xform.transformBoundingBox(bbox)
+
+
 # reproject input data from PROJECT_EPSG to correct utm zone
 def project_to_utm(rainfall_layer):
 
@@ -59,12 +67,6 @@ def project_to_utm(rainfall_layer):
 
     return rainfall_layer_utm
 
-def project_bounding_box(inEPGS, outEPSG, bbox):
-    crsSrc = QgsCoordinateReferenceSystem(inEPGS)
-    crsDest = QgsCoordinateReferenceSystem(outEPSG)
-    xform = QgsCoordinateTransform(crsSrc, crsDest, QgsProject.instance())
-
-    return xform.transformBoundingBox(bbox)
 
 # run IDW interpolation using rainfall points
 def run_interpolation(rainfall_layer_utm, interpolation_data_field_index, boundary_layers):
@@ -135,13 +137,6 @@ def load_boundary_layers():
         i += 1
     return boundary_layers
 
-def add_google_satellite_layer():
-    service_url = "mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-    service_uri = "type=xyz&zmin=0&zmax=21&url=https://" + requests.utils.quote(service_url)
-    google_satellite_layer = QgsRasterLayer(service_uri, "Google Satellite", "wms")
-    return google_satellite_layer
-
-
 def _calculate_break_points():
     pr = rainfall_interpolation_layer.dataProvider()
     bandStats = pr.bandStatistics(1, QgsRasterBandStats.All, rainfall_interpolation_layer.extent(), 0)
@@ -149,6 +144,11 @@ def _calculate_break_points():
     maxVal = bandStats.maximumValue
     return np.linspace(minVal,maxVal,len(COLOUR_PALLETE))
 
+def add_google_satellite_layer():
+    service_url = "mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+    service_uri = "type=xyz&zmin=0&zmax=21&url=https://" + requests.utils.quote(service_url)
+    google_satellite_layer = QgsRasterLayer(service_uri, "Google Satellite", "wms")
+    return google_satellite_layer
 
 def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_layers, googleLayer, rainfall_points_layer_name):
 
@@ -230,9 +230,9 @@ def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_lay
     legend.attemptMove(QgsLayoutPoint(5, 5, QgsUnitTypes.LayoutMillimeters))
     legend.setFrameEnabled(False)
 
-    legend.setStyleFont(QgsLegendStyle.Title, QFont('Arial',10, QFont.Bold))
     legend.setStyleFont(QgsLegendStyle.Subgroup , QFont('Arial',8, QFont.Bold))
     legend.setStyleFont(QgsLegendStyle.SymbolLabel, QFont('Arial',8))
+    legend.setStyleFont(QgsLegendStyle.Title, QFont('Arial',10, QFont.Bold))
 
     legend.setSymbolHeight(3)
     legend.setSymbolWidth(5.5)
@@ -271,7 +271,7 @@ PROJECT_NAME = 'Bungulla'
 
 # path to your input rainfall csv
 # valid value type: String
-INPUT_RAINFALL_CSV_PATH = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Bungulla-Rainfall-Data-2019-06-09-v2.1.csv"
+INPUT_RAINFALL_CSV_PATH = r"/home/yahor/distribution-map/example/Bungulla-Rainfall-Data-2019-06-09-v2.1.csv"
 
 # field names in csv that have x and y values
 # valid value type: String
@@ -284,13 +284,13 @@ INTERPOLATION_DATA_FIELD_NAME = 'Rainfall last 30 days'
 
 # path(s) to boundary layer(s)
 # valid value type: List of String
-BOUNDARY_LAYERS_PATHS = [r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Brad Farm Boundary 1.kml",
-                       r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Brad Farm Boundary 2.kml"
+BOUNDARY_LAYERS_PATHS = [r"/home/yahor/distribution-map/example/Brad Farm Boundary 1.kml",
+                       r"/home/yahor/distribution-map/example/Brad Farm Boundary 2.kml"
                        ]
 
 # path to folder to place permanent output
 # valid value type: String
-OUTPUT_FOLDER = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\output"
+OUTPUT_FOLDER = r"/home/yahor/distribution-map/output"
 
 
 
@@ -301,18 +301,18 @@ OUTPUT_FOLDER = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Ta
 
 # path to the app/qgis folder of your QGIS install
 # valid value type: String
-QGIS_PREFIX_PATH = r"C:\Program Files\QGIS 3.4"
+QGIS_PREFIX_PATH = r"/usr/share/qgis/"
 
 # path to folder to store temporary files (these will be removed after script run)
 # valid value type: String
-TEMP_FOLDER = r"F:\Tmp"
+TEMP_FOLDER = r"/home/yahor/Tmp"
 
 # path to style files   
 # valid value type: String
 #rainfall_style_file = r"C:\Upwork Jobs\CURRENT\Annie Brox - Origo farm - pyqgis script\sample data\Style for interpolated layer.qml"
-BOUNDARY_STYLE_FILE = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Style for boundary layers.qml"
-RAINFALL_POINTS_STYLE_FILE = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Style for points layers.qml"
-RAINFALL_POINTS_NAME_STYLE_FILE = r"C:\Users\KCS\Google Drive (superstar95115@gmail.com)\Upwork Task\Anatoly(UA)\Test2\distribution-map\example\Style for points name layers.qml"
+BOUNDARY_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for boundary layers.qml"
+RAINFALL_POINTS_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for points layers.qml"
+RAINFALL_POINTS_NAME_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for points name layers.qml"
 
 # color pallete to use for rainfall interpolation layer
 # valid value type: List of String
