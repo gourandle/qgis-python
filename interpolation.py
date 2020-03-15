@@ -20,6 +20,13 @@ def create_rainfall_layer():
         sys.exit(1)
     return layer
 
+def project_bounding_box(inEPGS, outEPSG, bbox):
+    crsSrc = QgsCoordinateReferenceSystem(inEPGS)
+    crsDest = QgsCoordinateReferenceSystem(outEPSG)
+    xform = QgsCoordinateTransform(crsSrc, crsDest, QgsProject.instance())
+
+    return xform.transformBoundingBox(bbox)
+
 # function that return UTM zone given a lat lng
 def convert_wgs_to_utm(lon, lat):
     utm_band = str((math.floor((lon + 180) / 6 ) % 60) + 1)
@@ -30,14 +37,6 @@ def convert_wgs_to_utm(lon, lat):
     else:
         epsg_code = '327' + utm_band
     return int(epsg_code)
-
-def project_bounding_box(inEPGS, outEPSG, bbox):
-    crsSrc = QgsCoordinateReferenceSystem(inEPGS)
-    crsDest = QgsCoordinateReferenceSystem(outEPSG)
-    xform = QgsCoordinateTransform(crsSrc, crsDest, QgsProject.instance())
-
-    return xform.transformBoundingBox(bbox)
-
 
 # reproject input data from PROJECT_EPSG to correct utm zone
 def project_to_utm(rainfall_layer):
@@ -128,15 +127,6 @@ def run_interpolation(rainfall_layer_utm, interpolation_data_field_index, bounda
 
     return rainfall_raster_layer
 
-
-def load_boundary_layers():
-    i = 0
-    boundary_layers = []
-    for path in BOUNDARY_LAYERS_PATHS:
-        boundary_layers.append(QgsVectorLayer(path, 'boundary_{}'.format(i), 'ogr'))
-        i += 1
-    return boundary_layers
-
 def _calculate_break_points():
     pr = rainfall_interpolation_layer.dataProvider()
     bandStats = pr.bandStatistics(1, QgsRasterBandStats.All, rainfall_interpolation_layer.extent(), 0)
@@ -149,6 +139,14 @@ def add_google_satellite_layer():
     service_uri = "type=xyz&zmin=0&zmax=21&url=https://" + requests.utils.quote(service_url)
     google_satellite_layer = QgsRasterLayer(service_uri, "Google Satellite", "wms")
     return google_satellite_layer
+
+def load_boundary_layers():
+    i = 0
+    boundary_layers = []
+    for path in BOUNDARY_LAYERS_PATHS:
+        boundary_layers.append(QgsVectorLayer(path, 'boundary_{}'.format(i), 'ogr'))
+        i += 1
+    return boundary_layers
 
 def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_layers, googleLayer, rainfall_points_layer_name):
 
@@ -307,8 +305,8 @@ QGIS_PREFIX_PATH = r"/usr/share/qgis/"
 # valid value type: String
 TEMP_FOLDER = r"/home/yahor/Tmp"
 
-# path to style files   
 # valid value type: String
+# path to style files   
 #rainfall_style_file = r"C:\Upwork Jobs\CURRENT\Annie Brox - Origo farm - pyqgis script\sample data\Style for interpolated layer.qml"
 BOUNDARY_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for boundary layers.qml"
 RAINFALL_POINTS_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for points layers.qml"
@@ -330,10 +328,10 @@ RESOLUTION = 30
 # valid value type: Numeric (integer or double)
 INTERPOLATION_PAD_DISTANCE = 1000
 
-# what layer should the interpolation extent be based on? Useful if you want to set the interpolation to cover
-# the boundary layer instead of just the rainfall points
 # valid value type: string
 # valid values: 'boundary' OR 'points'
+# what layer should the interpolation extent be based on? Useful if you want to set the interpolation to cover
+# the boundary layer instead of just the rainfall points
 INTERPOLATION_EXTENT_LAYER = 'boundary'
 
 # resolution of final png map
@@ -352,10 +350,10 @@ QgsApplication.setPrefixPath(QGIS_PREFIX_PATH, True)
 qgs = QgsApplication([], False)
 qgs.initQgis()
 
-# Next, we need to import the processing module. We need processing in order to re-project a raster layer. Vector data
-# is easy to re-project with the normal PyQGIS library, however for rasters, the easiest way is to use Processing to
 # run gdal_warp. Processing is not important as part of PyQGIS, and we actually have to make sure that the path to
 # processing is added to our sys.path before we can import. Once imported, this also needs to be initialized.
+# Next, we need to import the processing module. We need processing in order to re-project a raster layer. Vector data
+# is easy to re-project with the normal PyQGIS library, however for rasters, the easiest way is to use Processing to
 sys.path.append(os.path.join("/usr/share/qgis/", 'python', 'plugins'))
 import processing
 from processing.core.Processing import Processing
@@ -363,32 +361,31 @@ Processing.initialize()
 
 # Now that everything is initialized properly, let's load the rainfall csv layer to PyQGIS and make a layer object from it.
 print('Loading rainfall points from csv to QGIS layer...')
-rainfall_points_layer = create_rainfall_layer()
 rainfall_points_layer_name = create_rainfall_layer()
-# Since you want to be able to define the RESOLUTION of the output interpolated raster in linear units (ie meters),
-# we need to reproject the input data to a coordinate system that uses meters. WGS84 (ie epsg 4326) uses geographic
+rainfall_points_layer = create_rainfall_layer()
 # units (ie degrees), so we can't meaningfully measure distance in that crs. This function takes the center lat / lng
 # of the input rainfall csv, calculates the correct utm zone, then projects the rainfall layer to that crs
+# Since you want to be able to define the RESOLUTION of the output interpolated raster in linear units (ie meters),
+# we need to reproject the input data to a coordinate system that uses meters. WGS84 (ie epsg 4326) uses geographic
 print('Reprojecting data to UTM coordinates for processing...')
-interpolation_data_field_index = rainfall_points_layer.fields().lookupField(INTERPOLATION_DATA_FIELD_NAME)
 rainfall_layer_utm = project_to_utm(rainfall_points_layer)
+interpolation_data_field_index = rainfall_points_layer.fields().lookupField(INTERPOLATION_DATA_FIELD_NAME)
+
+# function also projects the output raster back from UTM to WGS84
+# Now run the actual interpolation to turn the point data in our rainfall layer to a surface (ie raster layer). The
+print('Running interpolation...')
+rainfall_interpolation_layer = run_interpolation(rainfall_layer_utm, interpolation_data_field_index, boundary_layers)
 
 # Next, create layer objects for designated boundary layers. You may specify a list of boundary layers, and each will
 # be loaded and thus appear in the output map.
 print('Loading boundary layers...')
 boundary_layers = load_boundary_layers()
 
-# Now run the actual interpolation to turn the point data in our rainfall layer to a surface (ie raster layer). The
-# function also projects the output raster back from UTM to WGS84
-print('Running interpolation...')
-rainfall_interpolation_layer = run_interpolation(rainfall_layer_utm, interpolation_data_field_index, boundary_layers)
-
-
 # We'll load a Google Satellite layer using python's requests module
 google_satellite_layer = add_google_satellite_layer()
 
-# Finally, set up the May Layout and export a png map. This function adds our layers (rainfall, boundary, satellite) to the
 # QGIS layer registry, styles them, then sets up and exports a .png map
+# Finally, set up the May Layout and export a png map. This function adds our layers (rainfall, boundary, satellite) to the
 print('Exporting map to "{}"'.format(os.path.join(OUTPUT_FOLDER, PROJECT_NAME + '.png')))
 export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_layers, google_satellite_layer, rainfall_points_layer_name)
 
@@ -397,3 +394,5 @@ print('Cleaning up temp files...')
 cleanup()
 
 print('Script finished successfully')
+
+
