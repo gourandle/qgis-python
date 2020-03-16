@@ -1,13 +1,13 @@
-from qgis.core import *
-from qgis.analysis import *
-from qgis.PyQt.QtGui import QColor, QFont
-from qgis.PyQt.QtCore import QRectF
 import math
 import os
 import sys
 import numpy as np
 import requests
 import datetime
+from qgis.core import *
+from qgis.analysis import *
+from qgis.PyQt.QtGui import QColor, QFont
+from qgis.PyQt.QtCore import QRectF
 
 # create layer object from input csv
 def create_rainfall_layer():
@@ -21,22 +21,11 @@ def create_rainfall_layer():
     return layer
 
 def project_bounding_box(inEPGS, outEPSG, bbox):
-    crsSrc = QgsCoordinateReferenceSystem(inEPGS)
     crsDest = QgsCoordinateReferenceSystem(outEPSG)
+    crsSrc = QgsCoordinateReferenceSystem(inEPGS)
     xform = QgsCoordinateTransform(crsSrc, crsDest, QgsProject.instance())
 
     return xform.transformBoundingBox(bbox)
-
-# function that return UTM zone given a lat lng
-def convert_wgs_to_utm(lon, lat):
-    utm_band = str((math.floor((lon + 180) / 6 ) % 60) + 1)
-    if len(utm_band) == 1:
-        utm_band = '0'+utm_band
-    if lat >= 0:
-        epsg_code = '326' + utm_band
-    else:
-        epsg_code = '327' + utm_band
-    return int(epsg_code)
 
 # reproject input data from PROJECT_EPSG to correct utm zone
 def project_to_utm(rainfall_layer):
@@ -66,16 +55,26 @@ def project_to_utm(rainfall_layer):
 
     return rainfall_layer_utm
 
+# function that return UTM zone given a lat lng
+def convert_wgs_to_utm(lon, lat):
+    utm_band = str((math.floor((lon + 180) / 6 ) % 60) + 1)
+    if len(utm_band) == 1:
+        utm_band = '0'+utm_band
+    if lat >= 0:
+        epsg_code = '326' + utm_band
+    else:
+        epsg_code = '327' + utm_band
+    return int(epsg_code)
 
 # run IDW interpolation using rainfall points
 def run_interpolation(rainfall_layer_utm, interpolation_data_field_index, boundary_layers):
 
     # do the interpolation - this outputs a .asc raster to file in UTM proj
-    layer_data = QgsInterpolator.LayerData()
-    layer_data.source = rainfall_layer_utm
-    layer_data.zCoordInterpolation = False
     layer_data.interpolationAttribute =interpolation_data_field_index
     layer_data.sourceType = 0
+    layer_data.zCoordInterpolation = False
+    layer_data = QgsInterpolator.LayerData()
+    layer_data.source = rainfall_layer_utm
     idw_interpolator = QgsIDWInterpolator([layer_data])
     export_path = os.path.join(TEMP_FOLDER, 'rainfall_layer_utm_interpolation.asc')
 
@@ -100,8 +99,8 @@ def run_interpolation(rainfall_layer_utm, interpolation_data_field_index, bounda
 
 
     rect = extent.buffered(INTERPOLATION_PAD_DISTANCE)
-    ncol = int((rect.xMaximum() - rect.xMinimum()) / RESOLUTION)
     nrows = int( (rect.yMaximum() - rect.yMinimum() ) / RESOLUTION)
+    ncol = int((rect.xMaximum() - rect.xMinimum()) / RESOLUTION)
     output = QgsGridFileWriter(idw_interpolator, export_path, rect, ncol, nrows)
     output.writeFile()
 
@@ -130,8 +129,8 @@ def run_interpolation(rainfall_layer_utm, interpolation_data_field_index, bounda
 def _calculate_break_points():
     pr = rainfall_interpolation_layer.dataProvider()
     bandStats = pr.bandStatistics(1, QgsRasterBandStats.All, rainfall_interpolation_layer.extent(), 0)
-    minVal = bandStats.minimumValue
     maxVal = bandStats.maximumValue
+    minVal = bandStats.minimumValue
     return np.linspace(minVal,maxVal,len(COLOUR_PALLETE))
 
 def add_google_satellite_layer():
@@ -176,8 +175,8 @@ def export_map(rainfall_points_layer, rainfall_interpolation_layer, boundary_lay
         colorRampItems.append(QgsColorRampShader.ColorRampItem(breakpoint, QColor(hexColorValue), label))
         i += 1
     colourRamp = QgsColorRampShader()
-    colourRamp.setColorRampItemList(colorRampItems)
     colourRamp.setColorRampType(QgsColorRampShader.Discrete)
+    colourRamp.setColorRampItemList(colorRampItems)
 
     # create a shader from colour ramp
     shader = QgsRasterShader()
