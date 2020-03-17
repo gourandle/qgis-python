@@ -272,8 +272,8 @@ INPUT_RAINFALL_CSV_PATH = r"/home/yahor/distribution-map/example/Bungulla-Rainfa
 
 # field names in csv that have x and y values
 # valid value type: String
-XFIELD = 'X'
 YFIELD = 'Y'
+XFIELD = 'X'
 
 # name of field containing rainfall data to use in interpolation
 # valid value type: String
@@ -288,9 +288,6 @@ BOUNDARY_LAYERS_PATHS = [r"/home/yahor/distribution-map/example/Brad Farm Bounda
 # path to folder to place permanent output
 # valid value type: String
 OUTPUT_FOLDER = r"/home/yahor/distribution-map/output"
-
-
-
 
 # -----------------------------------------------------------------------------------------------------------------#
 
@@ -307,9 +304,9 @@ TEMP_FOLDER = r"/home/yahor/Tmp"
 # valid value type: String
 # path to style files   
 #rainfall_style_file = r"C:\Upwork Jobs\CURRENT\Annie Brox - Origo farm - pyqgis script\sample data\Style for interpolated layer.qml"
+RAINFALL_POINTS_NAME_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for points name layers.qml"
 BOUNDARY_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for boundary layers.qml"
 RAINFALL_POINTS_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for points layers.qml"
-RAINFALL_POINTS_NAME_STYLE_FILE = r"/home/yahor/distribution-map/example/Style for points name layers.qml"
 
 # color pallete to use for rainfall interpolation layer
 # valid value type: List of String
