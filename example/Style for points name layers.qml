@@ -10,21 +10,21 @@
       <symbol type="marker" name="0" alpha="1" clip_to_extent="1" force_rhr="0">
         <layer enabled="1" class="SimpleMarker" pass="0" locked="0">
           <prop k="angle" v="0"/>
-          <prop k="size_unit" v="MM"/>
           <prop k="color" v="158,201,94,255"/>
+          <prop k="size_unit" v="MM"/>
           <prop k="name" v="circle"/>
-          <prop k="offset" v="0,0"/>
           <prop k="scale_method" v="diameter"/>
+          <prop k="offset" v="0,0"/>
           <prop k="size" v="2"/>
           <prop k="size_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-          <prop k="offset_unit" v="MM"/>
           <prop k="outline_width_unit" v="MM"/>
           <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
           <prop k="horizontal_anchor_point" v="1"/>
-          <prop k="joinstyle" v="bevel"/>
           <prop k="vertical_anchor_point" v="1"/>
           <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
           <prop k="outline_color" v="0,0,0,255"/>
+          <prop k="joinstyle" v="bevel"/>
           <prop k="outline_style" v="solid"/>
           <prop k="outline_width" v="0"/>
           <data_defined_properties>
@@ -46,29 +46,30 @@
       fontLetterSpacing="0" fieldName="Name" multilineHeight="1" fontWeight="50" fontStrikeout="0" fontFamily="Arial" useSubstitutions="0" 
       blendMode="0" fontSizeMapUnitScale="3x:0,0,0,0,0,0" previewBkgrdColor="255,255,255,255" fontItalic="0" isExpression="1" textOrientation="horizontal" namedStyle="Regular" textColor="255,255,255,255" fontSize="16.25">
         <text-buffer bufferBlendMode="0" bufferDraw="0" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferOpacity="1" bufferSize="1" bufferColor="255,255,255,255" bufferSizeUnits="MM" bufferNoFill="0" bufferJoinStyle="128"/>
-        <background shapeDraw="0" shapeRotationType="0" shapeOffsetUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255"  shapeJoinStyle="64" shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0"
-        shapeRadiiY="0" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetY="0" shapeRadiiX="0" shapeBorderWidthUnit="MM" shapeType="0" shapeSizeY="0" 
+        <background shapeDraw="0" shapeRotationType="0" shapeOffsetUnit="MM" shapeOffsetX="0" shapeFillColor="255,255,255,255"  shapeJoinStyle="64" 
+        shapeRadiiY="0" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetY="0" shapeRadiiX="0" shapeBorderWidthUnit="MM" shapeType="0" 
+        shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeSizeY="0" 
         shapeSizeX="0" shapeBorderColor="128,128,128,255" shapeBorderWidth="0" shapeSizeType="0" shapeSizeUnit="MM" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeBlendMode="0" shapeRotation="0" shapeOpacity="1" shapeRadiiUnit="MM">
             <symbol type="marker" name="markerSymbol" alpha="1" clip_to_extent="1" force_rhr="0">
             <layer enabled="1" class="SimpleMarker" pass="0" locked="0">
               <prop k="outline_width" v="0"/>
-              <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <prop k="outline_width_unit" v="MM"/>
-              <prop k="scale_method" v="diameter"/>
               <prop k="angle" v="0"/>
               <prop k="joinstyle" v="bevel"/>
               <prop k="name" v="circle"/>
               <prop k="offset" v="0,0"/>
               <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
               <prop k="size" v="2"/>
+              <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+              <prop k="outline_width_unit" v="MM"/>
+              <prop k="scale_method" v="diameter"/>
               <prop k="size_map_unit_scale" v="3x:0,0,0,0,0,0"/>
               <prop k="color" v="145,82,45,255"/>
               <prop k="horizontal_anchor_point" v="1"/>
               <prop k="outline_style" v="solid"/>
+              <prop k="outline_color" v="35,35,35,255"/>
               <prop k="size_unit" v="MM"/>
               <prop k="vertical_anchor_point" v="1"/>
               <prop k="offset_unit" v="MM"/>
-              <prop k="outline_color" v="35,35,35,255"/>
               <data_defined_properties>
                 <Option type="Map">
                   <Option type="QString" name="name" value=""/>
@@ -82,17 +83,17 @@
         <shadow shadowRadiusMapUnitScale="3x:0,0,0,0,0,0" shadowScale="100" shadowDraw="0" shadowOffsetAngle="135" shadowUnder="0" shadowRadius="1.5" shadowColor="0,0,0,255" shadowRadiusUnit="MM" shadowOpacity="0.7" shadowOffsetUnit="MM" shadowOffsetMapUnitScale="3x:0,0,0,0,0,0" shadowBlendMode="6" shadowOffsetDist="1" shadowOffsetGlobal="1" shadowRadiusAlphaOnly="0"/>
         <dd_properties>
           <Option type="Map">
+            <Option name="properties"/>
             <Option type="QString" name="type" value="collection"/>
             <Option type="QString" name="name" value=""/>
-            <Option name="properties"/>
           </Option>
         </dd_properties>
         <substitutions/>
       </text-style>
       <text-format useMaxLineLengthForAutoWrap="1" rightDirectionSymbol=">" reverseDirectionSymbol="0" multilineAlign="3" leftDirectionSymbol="&lt;" plussign="0" decimals="3" addDirectionSymbol="0" wrapChar="" formatNumbers="0" autoWrapLength="0" placeDirectionSymbol="0"/>
       <placement repeatDistanceUnits="MM" distUnits="MM" labelOffsetMapUnitScale="3x:0,0,0,0,0,0" rotationAngle="0" placement="6"       
-      repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" geometryGeneratorEnabled="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" 
       yOffset="10" maxCurvedCharAngleIn="25" centroidWhole="0" quadOffset="5" dist="0" maxCurvedCharAngleOut="-25" layerType="PointGeometry" priority="5" overrunDistanceMapUnitScale="3x:0,0,0,0,0,0" geometryGeneratorType="PointGeometry" xOffset="0" 
+      repeatDistanceMapUnitScale="3x:0,0,0,0,0,0" geometryGeneratorEnabled="0" predefinedPositionOrder="TR,TL,BR,BL,R,L,TSR,BSR" 
       preserveRotation="1" geometryGenerator="" fitInPolygonOnly="0" overrunDistanceUnit="MM" centroidInside="0" repeatDistance="0" placementFlags="10" offsetUnits="MapUnit" distMapUnitScale="3x:0,0,0,0,0,0" overrunDistance="0" offsetType="0"/>
       <rendering upsidedownLabels="0" fontLimitPixelSize="0" zIndex="0" labelPerPart="0" obstacleType="0" scaleMin="1" scaleVisibility="0" minFeatureSize="0" fontMaxPixelSize="10000" drawLabels="1" limitNumLabels="0" mergeLines="0" obstacleFactor="1" obstacle="1" maxNumLabels="2000" displayAll="0" fontMinPixelSize="3" scaleMax="10000000"/>
       <dd_properties>
@@ -113,15 +114,16 @@
           <Option type="bool" name="drawToAllParts" value="false"/>
           <Option type="QString" name="enabled" value="0"/>
           <Option type="QString" name="lineSymbol" value="&lt;symbol type=&quot;line&quot; name=&quot;symbol&quot; alpha=&quot;1&quot; clip_to_extent=&quot;1&quot; force_rhr=&quot;0&quot;>&lt;layer enabled=&quot;1&quot; class=&quot;SimpleLine&quot; 
-          k=&quot;line_color&quot; v=&quot;60,60,60,255&quot;/>&lt;prop k=&quot;line_style&quot; v=&quot;solid&quot;/>&lt;prop k=&quot;line_width&quot; k=&quot;ring_filter&quot; v=&quot;0&quot;/>&lt;prop k=&quot;use_custom_dash&quot; v=&quot;0&quot;/>&lt;prop k=&quot;width_map_unit_scale&quot; v=&quot;3x:0,0,0,0,0,0&quot;/>&lt;data_defined_properties>&lt;Option pass=&quot;0&quot; locked=&quot;0&quot;>&lt;prop k=&quot;capstyle&quot; v=&quot;square&quot;/>&lt;prop k=&quot;customdash&quot; k=&quot;customdash_unit&quot; v=&quot;MM&quot;/>&lt;prop v=&quot;0.3&quot;/>&lt;prop k=&quot;line_width_unit&quot; v=&quot;MM&quot;/>&lt;prop k=&quot;offset&quot; v=&quot;0&quot;/>&lt;prop k=&quot;offset_map_unit_scale&quot; v=&quot;3x:0,0,0,0,0,0&quot;/>&lt;prop k=&quot;offset_unit&quot; v=&quot;MM&quot;/>&lt;prop 
+          k=&quot;line_color&quot; v=&quot;60,60,60,255&quot;/>&lt;prop k=&quot;line_style&quot; v=&quot;solid&quot;/>&lt;prop k=&quot;line_width&quot; k=&quot;ring_filter&quot; v=&quot;0&quot;/>&lt;prop k=&quot;use_custom_dash&quot; v=&quot;0&quot;/>&lt;prop v=&quot;0&quot;/>&lt;prop k=&quot;offset_map_unit_scale&quot; v=&quot;3x:0,0,0,0,0,0&quot;/>&lt;prop k=&quot;offset_unit&quot; v=&quot;MM&quot;/>&lt;prop 
           k=&quot;draw_inside_polygon&quot; v=&quot;0&quot;/>&lt;prop k=&quot;joinstyle&quot; v=&quot;bevel&quot;/>&lt;prop 
+          k=&quot;width_map_unit_scale&quot; v=&quot;3x:0,0,0,0,0,0&quot;/>&lt;data_defined_properties>&lt;Option pass=&quot;0&quot; locked=&quot;0&quot;>&lt;prop k=&quot;capstyle&quot; v=&quot;square&quot;/>&lt;prop k=&quot;customdash&quot; k=&quot;customdash_unit&quot; v=&quot;MM&quot;/>&lt;prop v=&quot;0.3&quot;/>&lt;prop k=&quot;line_width_unit&quot; v=&quot;MM&quot;/>&lt;prop k=&quot;offset&quot; 
           v=&quot;5;2&quot;/>&lt;prop k=&quot;customdash_map_unit_scale&quot; v=&quot;3x:0,0,0,0,0,0&quot;/>&lt;prop type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; name=&quot;name&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;type&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"/>
           <Option type="double" name="minLength" value="0"/>
-          <Option type="QString" name="offsetFromAnchorUnit" value="MM"/>
-          <Option type="double" name="offsetFromLabel" value="0"/>
           <Option type="QString" name="offsetFromAnchorMapUnitScale" value="3x:0,0,0,0,0,0"/>
           <Option type="QString" name="offsetFromLabelMapUnitScale" value="3x:0,0,0,0,0,0"/>
           <Option type="QString" name="minLengthMapUnitScale" value="3x:0,0,0,0,0,0"/>
+          <Option type="QString" name="offsetFromAnchorUnit" value="MM"/>
+          <Option type="double" name="offsetFromLabel" value="0"/>
           <Option type="QString" name="minLengthUnit" value="MM"/>
           <Option type="double" name="offsetFromAnchor" value="0"/>
           <Option type="QString" name="offsetFromLabelUnit" value="MM"/>
@@ -218,20 +220,20 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
+    <field name="X" editable="1"/>
+    <field name="Y" editable="1"/>
     <field name="Station Name New" editable="1"/>
     <field name="Station ID" editable="1"/>
     <field name="id" editable="1"/>
-    <field name="X" editable="1"/>
-    <field name="Y" editable="1"/>
     <field name="Rainfall last 30 days" editable="1"/>
   </editable>
   <labelOnTop>
-    <field name="Rainfall last 30 days" labelOnTop="0"/>
-    <field name="Y" labelOnTop="0"/>
-    <field name="Station Name New" labelOnTop="0"/>
     <field name="id" labelOnTop="0"/>
     <field name="Station ID" labelOnTop="0"/>
     <field name="X" labelOnTop="0"/>
+    <field name="Rainfall last 30 days" labelOnTop="0"/>
+    <field name="Y" labelOnTop="0"/>
+    <field name="Station Name New" labelOnTop="0"/>
   </labelOnTop>
   <widgets/>
   <previewExpression>Station Name New</previewExpression>
