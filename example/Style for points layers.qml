@@ -6,21 +6,21 @@
         <layer pass="0" class="SimpleMarker" locked="0" enabled="1">
           <prop v="0" k="angle"/>
           <prop v="circle" k="name"/>
+          <prop v="2" k="size"/>
+          <prop v="bevel" k="joinstyle"/>
+          <prop v="MM" k="outline_width_unit"/>
+          <prop v="diameter" k="scale_method"/>
+          <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
           <prop v="0,0,0,255" k="outline_color"/>
           <prop v="solid" k="outline_style"/>
           <prop v="0,0" k="offset"/>
           <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
           <prop v="MM" k="offset_unit"/>
-          <prop v="2" k="size"/>
+          <prop v="MM" k="size_unit"/>
           <prop v="0" k="outline_width"/>
           <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
           <prop v="158,201,94,255" k="color"/>
           <prop v="1" k="horizontal_anchor_point"/>
-          <prop v="bevel" k="joinstyle"/>
-          <prop v="MM" k="outline_width_unit"/>
-          <prop v="diameter" k="scale_method"/>
-          <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
-          <prop v="MM" k="size_unit"/>
           <prop v="1" k="vertical_anchor_point"/>
           <data_defined_properties>
             <Option type="Map">
@@ -138,26 +138,26 @@
   </fieldConfiguration>
   <aliases>
     <alias name="" field="Station ID" index="0"/>
+    <alias name="" field="Rainfall last 30 days" index="4"/>
     <alias name="" field="Y" index="2"/>
     <alias name="" field="Station Name New" index="1"/>
-    <alias name="" field="Rainfall last 30 days" index="4"/>
     <alias name="" field="X" index="3"/>
   </aliases>
   <excludeAttributesWMS/>
   <excludeAttributesWFS/>
   <defaults>
+    <default applyOnUpdate="0" expression="" field="X"/>
+    <default applyOnUpdate="0" expression="" field="Station ID"/>
     <default applyOnUpdate="0" expression="" field="Station Name New"/>
     <default applyOnUpdate="0" expression="" field="Rainfall last 30 days"/>
     <default applyOnUpdate="0" expression="" field="Y"/>
-    <default applyOnUpdate="0" expression="" field="X"/>
-    <default applyOnUpdate="0" expression="" field="Station ID"/>
   </defaults>
   <constraints>
     <constraint notnull_strength="0" unique_strength="0" exp_strength="0" field="Y" constraints="0"/>
-    <constraint notnull_strength="0" unique_strength="0" exp_strength="0" field="X" constraints="0"/>
-    <constraint notnull_strength="0" unique_strength="0" exp_strength="0" field="Station ID" constraints="0"/>
     <constraint notnull_strength="0" unique_strength="0" exp_strength="0" field="Station Name New" constraints="0"/>
     <constraint notnull_strength="0" unique_strength="0" exp_strength="0" field="Rainfall last 30 days" constraints="0"/>
+    <constraint notnull_strength="0" unique_strength="0" exp_strength="0" field="X" constraints="0"/>
+    <constraint notnull_strength="0" unique_strength="0" exp_strength="0" field="Station ID" constraints="0"/>
   </constraints>
   <constraintExpressions>
     <constraint desc="" field="Y" exp=""/>
@@ -203,18 +203,18 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
+    <field name="X" editable="1"/>
+    <field name="Y" editable="1"/>
     <field name="Rainfall last 30 days" editable="1"/>
     <field name="Station ID" editable="1"/>
     <field name="Station Name New" editable="1"/>
-    <field name="X" editable="1"/>
-    <field name="Y" editable="1"/>
   </editable>
   <labelOnTop>
+    <field labelOnTop="0" name="X"/>
+    <field labelOnTop="0" name="Y"/>
     <field labelOnTop="0" name="Rainfall last 30 days"/>
     <field labelOnTop="0" name="Station ID"/>
     <field labelOnTop="0" name="Station Name New"/>
-    <field labelOnTop="0" name="X"/>
-    <field labelOnTop="0" name="Y"/>
   </labelOnTop>
   <widgets/>
   <conditionalstyles>

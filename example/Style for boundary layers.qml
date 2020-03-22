@@ -7,14 +7,14 @@
           <prop v="square" k="capstyle"/>
           <prop v="solid" k="line_style"/>
           <prop v="0.8" k="line_width"/>
+          <prop v="MM" k="customdash_unit"/>
+          <prop v="0" k="draw_inside_polygon"/>
+          <prop v="MM" k="offset_unit"/>
           <prop v="MM" k="line_width_unit"/>
           <prop v="0" k="offset"/>
           <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
           <prop v="5;2" k="customdash"/>
           <prop v="3x:0,0,0,0,0,0" k="customdash_map_unit_scale"/>
-          <prop v="MM" k="customdash_unit"/>
-          <prop v="0" k="draw_inside_polygon"/>
-          <prop v="MM" k="offset_unit"/>
           <prop v="0" k="use_custom_dash"/>
           <prop v="bevel" k="joinstyle"/>
           <prop v="214,214,214,255" k="line_color"/>
@@ -185,12 +185,12 @@
   <defaults>
     <default applyOnUpdate="0" expression="" field="tessellate"/>
     <default applyOnUpdate="0" expression="" field="extrude"/>
-    <default applyOnUpdate="0" expression="" field="visibility"/>
-    <default applyOnUpdate="0" expression="" field="Name"/>
     <default applyOnUpdate="0" expression="" field="descriptio"/>
     <default applyOnUpdate="0" expression="" field="end"/>
     <default applyOnUpdate="0" expression="" field="altitudeMo"/>
     <default applyOnUpdate="0" expression="" field="timestamp"/>
+    <default applyOnUpdate="0" expression="" field="visibility"/>
+    <default applyOnUpdate="0" expression="" field="Name"/>
     <default applyOnUpdate="0" expression="" field="begin"/>
     <default applyOnUpdate="0" expression="" field="drawOrder"/>
     <default applyOnUpdate="0" expression="" field="icon"/>
