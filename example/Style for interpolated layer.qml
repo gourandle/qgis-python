@@ -5,10 +5,10 @@
       <rasterTransparency/>
       <minMaxOrigin>
         <limits>MinMax</limits>
-        <cumulativeCutUpper>0.98</cumulativeCutUpper>
-        <extent>WholeRaster</extent>
         <cumulativeCutLower>0.02</cumulativeCutLower>
         <statAccuracy>Estimated</statAccuracy>
+        <cumulativeCutUpper>0.98</cumulativeCutUpper>
+        <extent>WholeRaster</extent>
         <stdDevFactor>2</stdDevFactor>
       </minMaxOrigin>
       <rastershader>
@@ -20,9 +20,9 @@
             <prop v="247,251,255,255" k="color1"/>
             <prop v="0" k="discrete"/>
           </colorramp>
-          <item alpha="255" label="24.9" color="#2879b9" value="24.9499"/>
           <item alpha="255" label="27.4" color="#08306b" value="27.3995"/>
           <item alpha="255" label="17.6" color="#f7fbff" value="17.6011"/>
+          <item alpha="255" label="24.9" color="#2879b9" value="24.9499"/>
           <item alpha="255" label="22.5" color="#73b3d8" value="22.5003"/>
           <item alpha="255" label="20.1" color="#c8ddf0" value="20.0507"/>
         </colorrampshader>
